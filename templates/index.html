@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arabic to Hieroglyphics Translator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Arabic to Hieroglyphics Translator</h1>
+        <textarea id="arabicText" placeholder="Enter Arabic text here..."></textarea><br>
+        <button onclick="translateText()">Translate</button>
+
+        <h2>English Translation</h2>
+        <p id="englishText"></p>
+
+        <h2>Hieroglyphics Translation</h2>
+        <p id="hieroglyphicsText"></p>
+    </div>
+
+    <script>
+        function translateText() {
+            const arabicText = document.getElementById('arabicText').value;
+
+            fetch('/translate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: arabicText })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('englishText').innerText = data.english;
+                document.getElementById('hieroglyphicsText').innerText = data.hieroglyphics;
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>
