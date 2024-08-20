@@ -14,6 +14,7 @@ hieroglyphic_dict = {
     "z": "𓊃", " " : "𓐍"
 }
 
+
 @app.route('/')
 def index():
     return render_template('index.html')
