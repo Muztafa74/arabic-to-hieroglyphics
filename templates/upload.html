@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مترجم من العربية إلى الهيروغليفية</title>
+    <title>تحميل صورة للترجمة</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -20,16 +20,17 @@
     </header>
 
     <div class="container">
-        <div class="header-wrapper">
-            
-            <h1>مترجم من العربية إلى الهيروغليفية</h1>
-        </div>
+        <h1>تحميل صورة للترجمة</h1>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="image" accept="image/*" required><br><br>
+            <button type="submit">ترجمة النص في الصورة</button>
+        </form>
 
-        <div class="translation-boxes">
-            <textarea id="hieroglyphicsText" class="left-box" readonly></textarea>
-            <textarea id="arabicText" placeholder="أدخل النص هنا..." class="right-box"></textarea>
-        </div>
-        <button onclick="translateText()">ترجمة</button>
+        <h2>النص المستخرج:</h2>
+        <textarea id="arabicText" class="right-box" readonly>{{ extracted_text }}</textarea>
+
+        <h2>الترجمة إلى الهيروغليفية:</h2>
+        <textarea id="hieroglyphicsText" class="left-box" readonly>{{ hieroglyphics_text }}</textarea>
     </div>
     <script src="/static/script.js"></script>
 </body>
