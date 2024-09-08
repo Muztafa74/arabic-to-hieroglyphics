@@ -11,9 +11,6 @@
     <header>
         <nav>
             <ul>
-                <li><a href="/contact">اتصل بنا</a></li>
-                <li><a href="/about">حول الموقع</a></li>
-                <li><a href="/upload">تحميل صورة للترجمة</a></li>
                 <li><a href="/dashboard">لوحة التحكم</a></li>
                 <li><a href="/">الرئيسية</a></li>
             </ul>
@@ -24,32 +21,19 @@
         <h1>لوحة التحكم</h1>
         <h2>الكلمات العربية الأكثر تكراراً:</h2>
 
-        <!-- Plotly chart will be rendered here -->
         <div id="chart"></div>
 
-       <!-- <h2>أكثر 10 كلمات استخداماً:</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>الكلمة</th>
-                    <th>عدد التكرارات</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for word, count in most_common_words %}
-                <tr>
-                    <td>{{ word }}</td>
-                    <td>{{ count }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table> -->
+        <h2>إجمالي الكلمات المترجمة:</h2>
+        <p>{{ total_translated_words }}</p>
+        <h2>عدد مستخدمين الموقع</h2>
+        <p>{{ total_users }}</p>
+        <h2>عدد الصور التي تم تحميلها علي الموقع</h2>
+        <p>{{ total_uploaded_images }}</p>
     </div>
-
-    <script>
-        // Render the Plotly chart using the interactive_chart data from Flask
+    
+    <script>    
         var plotData = {{ interactive_chart | safe }};
-        Plotly.newPlot('chart', plotData.data, plotData.layout);
+        Plotly.newPlot('chart', plotData);
     </script>
 </body>
 </html>

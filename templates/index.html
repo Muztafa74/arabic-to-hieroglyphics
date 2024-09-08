@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,9 +10,6 @@
     <header>
         <nav>
             <ul>
-                <li><a href="/contact">اتصل بنا</a></li>
-                <li><a href="/about">حول الموقع</a></li>
-                <li><a href="/upload">تحميل صورة للترجمة</a></li>
                 <li><a href="/dashboard">لوحة التحكم</a></li>
                 <li><a href="/">الرئيسية</a></li>
             </ul>
@@ -21,15 +18,18 @@
 
     <div class="container">
         <div class="header-wrapper">
-            
             <h1>مترجم من العربية إلى الهيروغليفية</h1>
         </div>
 
         <div class="translation-boxes">
-            <textarea id="hieroglyphicsText" class="left-box" readonly></textarea>
             <textarea id="arabicText" placeholder="أدخل النص هنا..." class="right-box"></textarea>
+            <textarea id="hieroglyphicsText" class="left-box" readonly></textarea>
         </div>
-        <button onclick="translateText()">ترجمة</button>
+        
+        <div class="ocr-upload">
+            <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+            <button onclick="document.getElementById('imageUpload').click()">تحميل صورة للتعرف على النص</button>
+        </div>
     </div>
     <script src="/static/script.js"></script>
 </body>
