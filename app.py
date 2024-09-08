@@ -1,17 +1,14 @@
-from flask import Flask, request, jsonify, render_template, url_for
+from flask import Flask, request, jsonify, render_template
 from werkzeug.utils import secure_filename
 from googletrans import Translator
 import plotly.graph_objs as go
 import plotly
 from PIL import Image
 import pytesseract
-import plotly.express as px
-import base64
+import os
+import json
 from collections import Counter
 import logging
-import os
-import io
-import json
 
 app = Flask(__name__)
 translator = Translator()
@@ -19,7 +16,7 @@ TRANSLATED_WORDS_FILE = 'translated_words.json'
 
 
 
-pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+#pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 # Set up logging
 logging.basicConfig(level=logging.DEBUG)
 # Ensure the 'temp' directory exists
@@ -113,19 +110,17 @@ def translate_to_hieroglyphics(english_text):
 # Dashboard route to display word frequency chart
 total_users = 500
 total_uploaded_images = 200
+
 @app.route('/dashboard')
 def dashboard():
+    """Render the dashboard with metrics."""
     translated_words = load_translated_words()
-    word_counts = Counter(translated_words).most_common(10)  # Top 10 words
-    interactive_chart = create_interactive_word_frequency_chart(word_counts)
-    most_common_words = word_counts  # Use the existing word_counts variable
-    total_translated_words = len(translated_words)  # Calculate the total count of all words translated
+    total_translated_words = len(translated_words)
     return render_template('dashboard.html', 
-                           interactive_chart=interactive_chart, 
-                           most_common_words=most_common_words,
                            total_uploaded_images=total_uploaded_images, 
                            total_users=total_users, 
                            total_translated_words=total_translated_words)
+
 
 
 # Home route
@@ -154,6 +149,24 @@ def translate_text():
     return jsonify({'arabic': arabic_text,  'hieroglyphics': hieroglyphic_text})
 
 
+@app.route('/api/chart-data')
+def get_chart_data():
+    """API endpoint to get chart data for word frequency."""
+    translated_words = load_translated_words()
+    word_counts = Counter(translated_words).most_common(10)  # Top 10 words
+    
+    chart_data = [
+        {
+            'word': word,
+            'count': count
+        }
+        for word, count in word_counts
+    ]
+    
+    return jsonify(chart_data)
+
+
 # Run the Flask app
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
