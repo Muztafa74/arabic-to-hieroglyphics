@@ -25,12 +25,16 @@
             <textarea id="arabicText" placeholder="أدخل النص هنا..." class="right-box"></textarea>
             <textarea id="hieroglyphicsText" class="left-box" readonly></textarea>
         </div>
+
+        <!-- Translate Button -->
+        <button id="translateBtn">ترجمة</button>
         
         <div class="ocr-upload">
             <input type="file" id="imageUpload" accept="image/*" style="display: none;">
             <button onclick="document.getElementById('imageUpload').click()">تحميل صورة للتعرف على النص</button>
         </div>
     </div>
+    
     <script src="/static/script.js"></script>
 </body>
 </html>

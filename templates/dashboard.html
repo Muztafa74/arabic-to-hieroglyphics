@@ -30,10 +30,6 @@
         <h2>عدد الصور التي تم تحميلها علي الموقع</h2>
         <p>{{ total_uploaded_images }}</p>
     </div>
-    
-    <script>    
-        var plotData = {{ interactive_chart | safe }};
-        Plotly.newPlot('chart', plotData);
-    </script>
+    <script src="/static/script.js"></script>
 </body>
 </html>
