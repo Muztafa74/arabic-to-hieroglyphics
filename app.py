@@ -162,6 +162,15 @@ def translated_word_count():
     word_list = [{'label': word, 'value': count} for word, count in word_counts]
     return jsonify(word_list)
 
+@app.route('/total-translated-words', methods=['GET'])
+def get_total_translated_words():
+    """Retrieve the total number of translated words."""
+    translated_words = load_translated_words()
+    
+    # حساب إجمالي الكلمات المترجمة
+    total_words = sum(translated_words.values())
+    
+    return jsonify({'total_translated_words': total_words})
 
 @app.route('/dashboard')
 def dashboard():
