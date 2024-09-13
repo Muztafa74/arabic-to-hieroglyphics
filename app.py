@@ -166,8 +166,7 @@ def translated_word_count():
 def get_total_translated_words():
     """Retrieve the total number of translated words."""
     translated_words = load_translated_words()
-    
-    # حساب إجمالي الكلمات المترجمة
+
     total_words = sum(translated_words.values())
     
     return jsonify({'total_translated_words': total_words})
@@ -182,6 +181,15 @@ def dashboard():
                            total_users=total_users, 
                            total_translated_words=total_translated_words)
 
+@app.route('/get-translated-words-file', methods=['GET'])
+def get_translated_words_file():
+    try:
+        with open(TRANSLATED_WORDS_FILE, 'r', encoding='utf-8') as file:
+            translated_words = json.load(file)
+        return jsonify(translated_words)
+    except FileNotFoundError:
+        return jsonify({'error': 'File not found'}), 404
+    
 def load_translated_words():
     try:
         with open(TRANSLATED_WORDS_FILE, 'r', encoding='utf-8') as file:
