@@ -15,7 +15,7 @@ import json
 
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": ["https://kemet-translator.netlify.app", "http://localhost:3000"]}})
 translator = Translator()
 TRANSLATED_WORDS_FILE = 'translated_words.json'
 pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
