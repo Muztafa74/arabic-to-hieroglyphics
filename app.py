@@ -150,9 +150,15 @@ def translate_to_hieroglyphics(english_text):
     return ''.join(hieroglyphic_dict.get(char, char) for char in english_text.lower())
 
 # Dashboard route to display word frequency chart
-total_users = 500
-total_uploaded_images = 200
-
+total_users = 124
+total_uploaded_images = 657
+@app.route('/api/total_users', methods=['GET'])
+def get_total_users():
+    return jsonify({'total_users': total_users})
+# Route to return total uploaded images
+@app.route('/api/total_uploaded_images', methods=['GET'])
+def get_total_uploaded_images():
+    return jsonify({'total_uploaded_images': total_uploaded_images})
 
 @app.route('/translated-word-count', methods=['GET'])
 def translated_word_count():
